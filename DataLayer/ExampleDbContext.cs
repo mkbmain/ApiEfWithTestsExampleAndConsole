@@ -49,7 +49,9 @@ namespace DataLayer
                 entity.Property(e => e.DateOfBirth).HasColumnType("date");
 
                 entity.Property(e => e.Email).HasMaxLength(150);
-
+                entity.HasIndex(u => u.Email)
+                    .IsUnique();
+                
                 entity.Property(e => e.Name).HasMaxLength(150);
             });
 

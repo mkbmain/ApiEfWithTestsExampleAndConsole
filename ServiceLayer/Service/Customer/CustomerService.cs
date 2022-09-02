@@ -52,6 +52,11 @@ public class CustomerService : BaseService<DataLayer.Customer, CustomerService>,
     {
         try
         {
+            var user = await GetCustomerByEmail(request.Email);
+            if (user.Status == ServiceStatus.Success)
+            {
+                return new ServiceResponse<int>() {Status = ServiceStatus.BadRequest, Message = "Email already in use"};
+            }
             var customer = new DataLayer.Customer
             {
                 Email = request.Email,

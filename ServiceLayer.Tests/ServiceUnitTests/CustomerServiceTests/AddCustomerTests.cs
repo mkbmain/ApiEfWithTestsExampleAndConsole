@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DataLayer;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,25 @@ namespace ServiceLayer.Tests.ServiceUnitTests.CustomerServiceTests;
 
 public class AddCustomerTests
 {
+    [Fact]
+    public async Task Ensure_if_email_in_use_we_report()
+    {
+        const string BadEmail = "mike@test.com";
+
+        var (sut, mocklogger, mockrepo) = CustomerServiceFactory.Generate();
+        mockrepo.Setup(t =>
+                t.Get(It.IsAny<Expression<Func<Customer, bool>>>(),
+                    It.IsAny<Expression<Func<Customer, CustomerResponse>>>()))
+            .ReturnsAsync(new CustomerResponse());
+
+        var result = await sut.AddCustomer(new CreateCustomerRequest
+        {
+            Email = BadEmail
+        });
+        result.Status.ShouldBe(ServiceStatus.BadRequest);
+        result.Message.ShouldBe("Email already in use");
+    }
+
     [Fact]
     public async Task Ensure_we_can_addCustomer()
     {
@@ -84,9 +104,9 @@ public class AddCustomerTests
         result.Status.ShouldBe(ServiceStatus.Error);
         result.Message.ShouldBe(exception.Message);
 
-        mocklogger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), 
-                It.IsAny<It.IsAnyType>(), exception, 
-                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), 
+        mocklogger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(), exception,
+                (Func<It.IsAnyType, Exception, string>) It.IsAny<object>()),
             Times.Once);
     }
 }
