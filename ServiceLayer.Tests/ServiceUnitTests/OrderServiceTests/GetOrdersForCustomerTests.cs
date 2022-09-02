@@ -23,14 +23,14 @@ public class GetOrdersForCustomerTests
     public async Task Ensure_we_can_Get_customer_by_email()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await SetupRepo(() => sut.GetOrdersForCustomer(Email), mockrepo, GoodAsserts);
+        await SetupRepoInvokeAndAssert(() => sut.GetOrdersForCustomer(Email), mockrepo, GoodAsserts);
     }
 
     [Fact]
     public async Task Ensure_we_can_Get_customer_by_id()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await SetupRepo(() => sut.GetOrdersForCustomer(CustomerId), mockrepo, GoodAsserts);
+        await SetupRepoInvokeAndAssert(() => sut.GetOrdersForCustomer(CustomerId), mockrepo, GoodAsserts);
     }
 
 
@@ -38,7 +38,7 @@ public class GetOrdersForCustomerTests
     public async Task Ensure_if_not_found_we_report_by_id()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await SetupRepo(() => sut.GetOrdersForCustomer(CustomerId - 15), mockrepo,
+        await SetupRepoInvokeAndAssert(() => sut.GetOrdersForCustomer(CustomerId - 15), mockrepo,
             NotFoundAsserts);
     }
 
@@ -46,7 +46,7 @@ public class GetOrdersForCustomerTests
     public async Task Ensure_if_not_found_we_report()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await SetupRepo(() => sut.GetOrdersForCustomer(Email + "testy"), mockrepo,
+        await SetupRepoInvokeAndAssert(() => sut.GetOrdersForCustomer(Email + "testy"), mockrepo,
             NotFoundAsserts);
     }
 
@@ -76,7 +76,7 @@ public class GetOrdersForCustomerTests
         AssertError(response, exception, logger);
     }
 
-    private static async Task SetupRepo(Func<Task<ServiceResponse<OrderResponse>>> func,
+    private static async Task SetupRepoInvokeAndAssert(Func<Task<ServiceResponse<OrderResponse>>> func,
         Mock<IRepo<ExampleDbContext>> mockrepo, Action<ServiceResponse<OrderResponse>, Customer> asserts)
     {
         var goodCustomer = new Customer()
