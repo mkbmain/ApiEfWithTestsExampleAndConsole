@@ -23,14 +23,14 @@ public class GetOrdersForCustomerTests
     public async Task Ensure_we_can_Get_customer_by_email()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(Email), sut, mockrepo, GoodAsserts);
+        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(Email), mockrepo, GoodAsserts);
     }
 
     [Fact]
     public async Task Ensure_we_can_Get_customer_by_id()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(CustomerId), sut, mockrepo, GoodAsserts);
+        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(CustomerId), mockrepo, GoodAsserts);
     }
 
 
@@ -38,7 +38,7 @@ public class GetOrdersForCustomerTests
     public async Task Ensure_if_not_found_we_report_by_id()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(CustomerId - 15), sut, mockrepo,
+        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(CustomerId - 15), mockrepo,
             NotFoundAsserts);
     }
 
@@ -46,7 +46,7 @@ public class GetOrdersForCustomerTests
     public async Task Ensure_if_not_found_we_report()
     {
         var (sut, logger, mockrepo) = OrderServiceFactory.Generate();
-        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(Email + "testy"), sut, mockrepo,
+        await Ensure_we_can_GetCustomerByX(() => sut.GetOrdersForCustomer(Email + "testy"), mockrepo,
             NotFoundAsserts);
     }
 
@@ -59,7 +59,7 @@ public class GetOrdersForCustomerTests
                 t.Get(It.IsAny<Expression<Func<Customer, bool>>>(),
                     It.IsAny<Expression<Func<Customer, OrderResponse>>>()))
             .ThrowsAsync(exception);
-        var response =  await sut.GetOrdersForCustomer(CustomerId);
+        var response = await sut.GetOrdersForCustomer(CustomerId);
         AssertError(response, exception, logger);
     }
 
@@ -72,11 +72,11 @@ public class GetOrdersForCustomerTests
                 t.Get(It.IsAny<Expression<Func<Customer, bool>>>(),
                     It.IsAny<Expression<Func<Customer, OrderResponse>>>()))
             .ThrowsAsync(exception);
-        var response =  await sut.GetOrdersForCustomer(Email);
+        var response = await sut.GetOrdersForCustomer(Email);
         AssertError(response, exception, logger);
     }
 
-    public async Task Ensure_we_can_GetCustomerByX(Func<Task<ServiceResponse<OrderResponse>>> func, OrderService sut,
+    private static async Task Ensure_we_can_GetCustomerByX(Func<Task<ServiceResponse<OrderResponse>>> func,
         Mock<IRepo<ExampleDbContext>> mockrepo, Action<ServiceResponse<OrderResponse>, Customer> asserts)
     {
         var goodCustomer = new Customer()
