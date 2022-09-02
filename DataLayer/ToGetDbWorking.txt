@@ -1,0 +1,1 @@
+dotnet-ef database update --connection "Data Source=localhost;Initial Catalog=ExampleDb;user id=sa;password=12345678" << change to what ever credentials are
