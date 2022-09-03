@@ -65,7 +65,7 @@ public class OrderService : BaseService<DataLayer.Order, OrderService>, IOrderSe
             if (item is null)
             {
                 return new ServiceResponse<OrderResponse>
-                    {Status = ServiceStatus.BadRequest, Message = "No Item found"};
+                    {Status = ServiceStatus.BadRequest, Message = "No Customer Found"};
             }
 
             return new ServiceResponse<OrderResponse> {Data = item};

@@ -22,15 +22,15 @@ public class CustomerController : BaseApiController
         return HandleResponse(result, () => Created(result));
     }
 
-    [HttpGet("id")]
-    public async Task<IActionResult> GetUserById([FromQuery] int id)
+    [HttpGet("Id/{id}")]
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
         var result = await _customerService.GetCustomerById(id);
         return HandleResponse(result, () => Ok(result));
     }
 
-    [HttpGet("email")]
-    public async Task<IActionResult> GetUserByEmail([FromQuery] string email)
+    [HttpGet("Email/{email}")]
+    public async Task<IActionResult> GetUserByEmail([FromRoute] string email)
 
     {
         var result = await _customerService.GetCustomerByEmail(email);

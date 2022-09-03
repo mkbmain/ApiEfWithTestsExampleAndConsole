@@ -139,7 +139,7 @@ public class GetOrdersForCustomerTests
 
     private static void NotFoundAsserts(ServiceResponse<OrderResponse> response, Customer goodCustomer)
     {
-        response.Message.ShouldBe("No Item found");
+        response.Message.ShouldBe("No Customer Found");
         response.Status.ShouldBe(ServiceStatus.BadRequest);
         response.Data.ShouldBeNull();
     }
