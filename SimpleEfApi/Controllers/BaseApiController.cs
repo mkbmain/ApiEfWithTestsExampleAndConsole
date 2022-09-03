@@ -14,17 +14,16 @@ public abstract class BaseApiController : ControllerBase
     {
         switch (serviceResponse.Status)
         {
-            case ServiceStatus.Error:
-                return new ObjectResult(new ServiceResponse {Message = "", Status = serviceResponse.Status})
-                    {StatusCode = (int) HttpStatusCode.InternalServerError};
             case ServiceStatus.BadRequest:
                 return new ObjectResult(new ServiceResponse
                         {Message = serviceResponse.Message, Status = serviceResponse.Status})
                     {StatusCode = (int) HttpStatusCode.BadRequest};
             case ServiceStatus.Success:
                 return goodAction.Invoke();
+            case ServiceStatus.Error:
             default:
-                throw new ArgumentOutOfRangeException();
+                return new ObjectResult(new ServiceResponse {Message = "", Status = serviceResponse.Status})
+                    {StatusCode = (int) HttpStatusCode.InternalServerError};
         }
     }
 }
