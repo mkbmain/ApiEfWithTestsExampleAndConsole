@@ -8,28 +8,25 @@ namespace SimpleEfApi.Controllers;
 [Route("[controller]")]
 public class CustomerController : BaseApiController
 {
-    private readonly ILogger<CustomerController> _logger;
     private readonly ICustomerService _customerService;
 
-    public CustomerController(ILogger<CustomerController> logger, ICustomerService customerService)
+    public CustomerController(ICustomerService customerService)
     {
         _customerService = customerService;
-        _logger = logger;
     }
-
 
     [HttpPost]
     public async Task<IActionResult> CreateUser(CreateCustomerRequest customerRequest)
     {
         var result = await _customerService.AddCustomer(customerRequest);
-        return HandleResponse(result, () => Ok(result));
+        return HandleResponse(result, () => Created(result));
     }
 
     [HttpGet("id")]
     public async Task<IActionResult> GetUserById([FromQuery] int id)
     {
         var result = await _customerService.GetCustomerById(id);
-      return  HandleResponse(result, () => Ok(result.Data));
+        return HandleResponse(result, () => Ok(result));
     }
 
     [HttpGet("email")]
@@ -37,6 +34,6 @@ public class CustomerController : BaseApiController
 
     {
         var result = await _customerService.GetCustomerByEmail(email);
-       return HandleResponse(result, () => Ok(result.Data));
+        return HandleResponse(result, () => Ok(result));
     }
 }
