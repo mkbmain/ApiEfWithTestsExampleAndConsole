@@ -24,4 +24,5 @@ more details here https://docs.microsoft.com/en-us/ef/core/cli/dotnet
 
 
 
-## Update the appsettings.json with url of your choice
+## Update the appsettings.json
+with connection string you have set 
