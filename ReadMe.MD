@@ -14,7 +14,7 @@ or depending on version and how ef is configured
 dotnet ef database update --connection "Data Source=localhost;Initial Catalog=ExampleDb;user id=sa;password=12345678"
 ```
 
-# # If EF is not setup on your machine
+## If EF is not setup on your machine
 if ef has not been setup globally you can do so by running
 ```
 dotnet tool install --global dotnet-ef
