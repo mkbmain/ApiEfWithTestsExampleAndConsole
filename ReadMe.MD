@@ -26,3 +26,14 @@ more details here https://docs.microsoft.com/en-us/ef/core/cli/dotnet
 
 ## Update the appsettings.json
 with connection string you have set 
+
+
+
+## update your lauch profile settings
+Api has nswag adding 
+```
+        "launchUrl": "swagger",
+```
+will lauch on to the nswag page by default
+or you can just naviage there after load 
+http(s)://locahost:port/swagger
