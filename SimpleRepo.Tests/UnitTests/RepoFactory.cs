@@ -7,9 +7,9 @@ namespace SimpleRepo.Tests.UnitTests;
 // and build a generic base for this if I could be bother but for this project 1 step at time
 public class RepoFactory
 {
-    public static (Repo<SimpleDbContext>, Mock<SimpleDbContext>) Get()
+    public static (Repo<SimpleDbTestContext>, Mock<SimpleDbTestContext>) Get()
     {
-        var mock = new Mock<SimpleDbContext>();
-        return (new Repo<SimpleDbContext>(mock.Object), mock);
+        var mock = new Mock<SimpleDbTestContext>();
+        return (new Repo<SimpleDbTestContext>(mock.Object), mock);
     }
 }

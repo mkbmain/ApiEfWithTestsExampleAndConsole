@@ -2,10 +2,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SimpleRepo.Tests
 {
-    public class SimpleDbContext : DbContext
+    public class SimpleDbTestContext : DbContext
     {
   
-        public SimpleDbContext()
+        public SimpleDbTestContext()
         {
         }
 
@@ -17,7 +17,7 @@ namespace SimpleRepo.Tests
         }
 
 
-        public SimpleDbContext(DbContextOptions<SimpleDbContext> options)
+        public SimpleDbTestContext(DbContextOptions<SimpleDbTestContext> options)
             : base(options)
         {
         }
