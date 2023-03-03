@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DataLayer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLayer.IoC;
 using ServiceLayer.Models;
@@ -12,12 +14,12 @@ namespace ConsoleAppExample
     /// </summary>
     class Program
     {
-        public static IServiceProvider GetDi()
+        private static IServiceProvider GetDi()
         {
             IConfiguration configuration = new ConfigurationBuilder().SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false)
                 .Build();
-            
+
             var serviceCollection = new ServiceCollection();
             ServiceLayerIoC.Add(serviceCollection, configuration);
 
@@ -28,8 +30,10 @@ namespace ConsoleAppExample
         {
             var provider = GetDi();
 
+            var ee = provider.GetService<ExampleDbContext>();
+            await ee.Database.MigrateAsync();
             var customerService = provider.GetService<ICustomerService>();
-            string customerEmail = Guid.NewGuid().ToString("N") + "@gmail.com";
+            var customerEmail = $"{Guid.NewGuid():N}@gmail.com";
             var customerResponse = await customerService.AddCustomer(new CreateCustomerRequest
             {
                 Name = "mike",
