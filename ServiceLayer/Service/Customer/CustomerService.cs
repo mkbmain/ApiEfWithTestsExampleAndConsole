@@ -8,7 +8,7 @@ namespace ServiceLayer.Service.Customer;
 
 public class CustomerService : BaseService<DataLayer.Customer, CustomerService>, ICustomerService
 {
-    public CustomerService(IRepo<ExampleDbContext> repo, ILogger<CustomerService> logger) : base(repo, logger)
+    public CustomerService(IRepo<CustomerOrdersDbContext> repo, ILogger<CustomerService> logger) : base(repo, logger)
     {
     }
 

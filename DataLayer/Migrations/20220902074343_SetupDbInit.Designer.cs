@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer.Migrations
 {
-    [DbContext(typeof(ExampleDbContext))]
+    [DbContext(typeof(CustomerOrdersDbContext))]
     [Migration("20220902074343_SetupDbInit")]
     partial class SetupDbInit
     {

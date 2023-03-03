@@ -9,9 +9,9 @@ namespace ServiceLayer.Tests.ServiceUnitTests.OrderServiceTests;
 
 public class OrderServiceFactory
 {
-    public static (OrderService, Mock<ILogger<OrderService>>, Mock<IRepo<ExampleDbContext>>) Generate()
+    public static (OrderService, Mock<ILogger<OrderService>>, Mock<IRepo<CustomerOrdersDbContext>>) Generate()
     {
-        var mock = new Mock<IRepo<ExampleDbContext>>();
+        var mock = new Mock<IRepo<CustomerOrdersDbContext>>();
         var logger = new Mock<ILogger<OrderService>>();
         return (new OrderService(mock.Object, logger.Object), logger, mock);
     }

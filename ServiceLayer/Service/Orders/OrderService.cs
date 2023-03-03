@@ -8,7 +8,7 @@ namespace ServiceLayer.Service.Orders;
 
 public class OrderService : BaseService<DataLayer.Order, OrderService>, IOrderService
 {
-    public OrderService(IRepo<ExampleDbContext> repo, ILogger<OrderService> orderService) : base(repo, orderService)
+    public OrderService(IRepo<CustomerOrdersDbContext> repo, ILogger<OrderService> orderService) : base(repo, orderService)
     {
     }
 

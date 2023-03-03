@@ -5,13 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DataLayer
 {
-    public partial class ExampleDbContext : DbContext
+    public partial class CustomerOrdersDbContext : DbContext
     {
-        public ExampleDbContext()
-        {
-        }
-
-        public ExampleDbContext(string connectionString) : base(GetOptions(connectionString))
+        public CustomerOrdersDbContext(string connectionString) : base(GetOptions(connectionString))
         {
         }
 
@@ -21,7 +17,7 @@ namespace DataLayer
                 .Options;
         }
 
-        public ExampleDbContext(DbContextOptions<ExampleDbContext> options)
+        public CustomerOrdersDbContext(DbContextOptions<CustomerOrdersDbContext> options)
             : base(options)
         {
         }
@@ -29,16 +25,6 @@ namespace DataLayer
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer(
-                    "Data Source=localhost;Initial Catalog=ExampleDb;user id=sa;password=12345678");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

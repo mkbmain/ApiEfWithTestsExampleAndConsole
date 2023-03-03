@@ -30,7 +30,7 @@ namespace ConsoleAppExample
         {
             var provider = GetDi();
 
-            var ee = provider.GetService<ExampleDbContext>();
+            var ee = provider.GetService<CustomerOrdersDbContext>();
             await ee.Database.MigrateAsync();
             var customerService = provider.GetService<ICustomerService>();
             var customerEmail = $"{Guid.NewGuid():N}@gmail.com";

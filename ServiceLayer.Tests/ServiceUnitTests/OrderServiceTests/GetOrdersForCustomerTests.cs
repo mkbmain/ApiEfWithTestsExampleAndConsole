@@ -77,7 +77,7 @@ public class GetOrdersForCustomerTests
     }
 
     private static async Task SetupRepoInvokeAndAssert(Func<Task<ServiceResponse<OrderResponse>>> func,
-        Mock<IRepo<ExampleDbContext>> mockrepo, Action<ServiceResponse<OrderResponse>, Customer> asserts)
+        Mock<IRepo<CustomerOrdersDbContext>> mockrepo, Action<ServiceResponse<OrderResponse>, Customer> asserts)
     {
         var goodCustomer = new Customer()
         {

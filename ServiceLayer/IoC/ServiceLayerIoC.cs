@@ -13,7 +13,7 @@ public static class ServiceLayerIoC
     {
         serviceCollection.AddLogging();
         DataLayer.IoC.DataLayerIoC.Add(serviceCollection, configuration);
-        serviceCollection.AddScoped<IRepo<ExampleDbContext>, Repo<ExampleDbContext>>();
+        serviceCollection.AddScoped<IRepo<CustomerOrdersDbContext>, Repo<CustomerOrdersDbContext>>();
         serviceCollection.AddScoped<ICustomerService, CustomerService>();
         serviceCollection.AddScoped<IOrderService, OrderService>();
     }

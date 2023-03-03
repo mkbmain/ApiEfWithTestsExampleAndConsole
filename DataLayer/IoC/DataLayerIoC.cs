@@ -9,10 +9,10 @@ public static class DataLayerIoC
 {
     public static void Add(IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.Configure<AuthDataSettings>(configuration.GetSection(nameof(AuthDataSettings)));
-        serviceCollection.AddDbContext<ExampleDbContext>((f, options) =>
+        serviceCollection.Configure<CustomerOrdersDataSettings>(configuration.GetSection(nameof(CustomerOrdersDataSettings)));
+        serviceCollection.AddDbContext<CustomerOrdersDbContext>((f, options) =>
             {
-                options.UseSqlServer(f.GetService<IOptions<AuthDataSettings>>().Value.ConnectionString);
+                options.UseSqlServer(f.GetService<IOptions<CustomerOrdersDataSettings>>().Value.ConnectionString);
                 options.UseLazyLoadingProxies();
             }
         );
