@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace DataLayer;
 
-public class ExampleDbContextFactory : IDesignTimeDbContextFactory<CustomerOrdersDbContext>
+public class CustomerOrdersDbContextFactory : IDesignTimeDbContextFactory<CustomerOrdersDbContext>
 {
     public CustomerOrdersDbContext CreateDbContext(string[] args)
     {
